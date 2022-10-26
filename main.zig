@@ -11,18 +11,18 @@ pub fn A(i: u32, j: u32) f64 {
     return @intToFloat(f64, (i + j) * (i + j + 1) / 2 + i + 1);
 }
 
-pub fn dot(v: *[]f64, u: *[]f64, num: u32) f64 {
+pub fn dot(v: []f64, u: []f64, num: u32) f64 {
     var ind: u32 = 0;
     var sum: f64 = 0;
 
     while (ind < num) : (ind += 1) {
-        sum += v.*[ind] * u.*[ind];
+        sum += v[ind] * u[ind];
     }
 
     return sum;
 }
 
-pub fn mult_Av(in: *[]f64, out: *[]f64, n: u32) void {
+pub fn mult_Av(in: []f64, out: []f64, n: u32) void {
     var i: u32 = 0;
     var j: u32 = 0;
 
@@ -30,13 +30,13 @@ pub fn mult_Av(in: *[]f64, out: *[]f64, n: u32) void {
         var sum: f64 = 0;
         j = 0;
         while (j < n) : (j += 1) {
-            sum += in.*[j] / A(i, j);
+            sum += in[j] / A(i, j);
         }
-        out.*[i] = sum;
+        out[i] = sum;
     }
 }
 
-pub fn mult_Atv(in: *[]f64, out: *[]f64, n: u32) void {
+pub fn mult_Atv(in: []f64, out: []f64, n: u32) void {
     var i: u32 = 0;
     var j: u32 = 0;
 
@@ -44,13 +44,13 @@ pub fn mult_Atv(in: *[]f64, out: *[]f64, n: u32) void {
         var sum: f64 = 0;
         j = 0;
         while (j < n) : (j += 1) {
-            sum += in.*[j] / A(j, i);
+            sum += in[j] / A(j, i);
         }
-        out.*[i] = sum;
+        out[i] = sum;
     }
 }
 
-pub fn mult_AtAv(in: *[]f64, out: *[]f64, num: u32, tmp: *[]f64) void {
+pub fn mult_AtAv(in: []f64, out: []f64, num: u32, tmp: []f64) void {
     mult_Av(in, tmp, num);
     mult_Atv(tmp, out, num);
 }
@@ -114,9 +114,9 @@ pub fn main() !void {
     }
     ind = 0;
     while (ind < 10) : (ind += 1) {
-        mult_AtAv(&u, &v, num, &tmp);
-        mult_AtAv(&v, &u, num, &tmp);
+        mult_AtAv(u, v, num, tmp);
+        mult_AtAv(v, u, num, tmp);
     }
 
-    try stdout.print("{d:.9}\n", .{std.math.sqrt(dot(&u, &v, num) / dot(&v, &v, num))});
+    try stdout.print("{d:.9}\n", .{std.math.sqrt(dot(u, v, num) / dot(v, v, num))});
 }
