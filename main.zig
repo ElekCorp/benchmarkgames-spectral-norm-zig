@@ -24,11 +24,10 @@ pub fn dot(v: []f64, u: []f64, num: u32) f64 {
 
 pub fn mult_Av(in: []f64, out: []f64, n: u32) void {
     var i: u32 = 0;
-    var j: u32 = 0;
 
     while (i < n) : (i += 1) {
         var sum: f64 = 0;
-        j = 0;
+        var j: u32 = 0;
         while (j < n) : (j += 1) {
             sum += in[j] / A(i, j);
         }
@@ -38,11 +37,10 @@ pub fn mult_Av(in: []f64, out: []f64, n: u32) void {
 
 pub fn mult_Atv(in: []f64, out: []f64, n: u32) void {
     var i: u32 = 0;
-    var j: u32 = 0;
 
     while (i < n) : (i += 1) {
         var sum: f64 = 0;
-        j = 0;
+        var j: u32 = 0;
         while (j < n) : (j += 1) {
             sum += in[j] / A(j, i);
         }
@@ -69,15 +67,12 @@ pub fn get_num() !u32 {
         @cInclude("stdlib.h");
     });
 
-    if(args.len>1)
-    {
-//cast the input and use atoi from stdlib.h
-    return @intCast(u32, c.atoi(args[1]));
-    }
-    else{
+    if (args.len > 1) {
+        //cast the input and use atoi from stdlib.h
+        return @intCast(u32, c.atoi(args[1]));
+    } else {
         return 0;
     }
-
 }
 
 pub fn main() !void {
