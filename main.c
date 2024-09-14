@@ -3,7 +3,7 @@
 #include <math.h>
 
 #define FP double
-//#define STATIC 2000
+//#define STATIC //2000
 
 FP A(int i, int j)
 {
@@ -57,16 +57,10 @@ int main(int argc, char **argv)
     FP* u=malloc(N*sizeof(FP));
     FP* v=malloc(N*sizeof(FP));
     FP* tmp=malloc(N*sizeof(FP));
-#else
-    if (N!=STATIC) {
-        printf("input N != STATIC/n");
-        return -1;
-    }
-    
+#else    
     FP u[STATIC];
     FP v[STATIC];
     FP tmp[STATIC];
-    
 #endif
     for (int i=0; i<N; ++i) {
         u[i]=1;
