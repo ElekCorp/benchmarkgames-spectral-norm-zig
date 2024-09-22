@@ -94,7 +94,7 @@ pub fn main() !void {
     const allocator = gpa.allocator();
 
     //alloc memory
-    var u: []f64 = try allocator.alloc(f64, num);
+    const u: []f64 = try allocator.alloc(f64, num);
     const v: []f64 = try allocator.alloc(f64, num);
     const tmp: []f64 = try allocator.alloc(f64, num);
 
