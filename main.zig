@@ -8,7 +8,7 @@
 const std = @import("std");
 
 pub fn A(i: u32, j: u32) f64 {
-    return @intToFloat(f64, (i + j) * (i + j + 1) / 2 + i + 1);
+    return @as(f64,@floatFromInt( (i + j) * (i + j + 1) / 2 + i + 1));
 }
 
 pub fn dot(v: []f64, u: []f64, num: u32) f64 {
@@ -69,7 +69,7 @@ pub fn get_num() !u32 {
 
     if (args.len > 1) {
         //cast the input and use atoi from stdlib.h
-        return @intCast(u32, c.atoi(args[1]));
+        return @intCast(c.atoi(args[1]));
     } else {
         return 0;
     }
@@ -95,8 +95,8 @@ pub fn main() !void {
 
     //alloc memory
     var u: []f64 = try allocator.alloc(f64, num);
-    var v: []f64 = try allocator.alloc(f64, num);
-    var tmp: []f64 = try allocator.alloc(f64, num);
+    const v: []f64 = try allocator.alloc(f64, num);
+    const tmp: []f64 = try allocator.alloc(f64, num);
 
     // frees at the end of the block
     defer allocator.free(u);
