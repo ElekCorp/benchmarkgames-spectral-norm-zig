@@ -1,5 +1,5 @@
 CXX :=g++
-CFLAGS := -O3 -Wall
+CFLAGS := -O3 -Wall -fopenmp
 
 #HEADERS := $(wildcard *.h)
 SOURCES := $(wildcard *.c)
@@ -7,13 +7,13 @@ OBJECTS := $(SOURCES:%.c=%.o)
 
  
 main: $(OBJECTS) main_static main_optimized
-	$(CXX) $(CFLAGS) -o main main.o -lm
+	$(CXX) $(CFLAGS) -o main main.o -lm -fopenmp
 
 main_static: $(OBJECTS) 
-	$(CXX) $(CFLAGS) -o main_static main_static.o -lm 
+	$(CXX) $(CFLAGS) -o main_static main_static.o -lm -fopenmp 
 
 main_optimized: $(OBJECTS)
-	$(CXX) $(CFLAGS) -o main_optimized main_optimized.o -lm 
+	$(CXX) $(CFLAGS) -o main_optimized main_optimized.o -lm -fopenmp
 
 %.o: %.cpp
 	$(CXX) -c $(CFLAGS) $< -o $@

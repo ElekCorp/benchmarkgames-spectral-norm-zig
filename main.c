@@ -13,6 +13,7 @@ FP A(int i, int j)
 FP dot(double* v, double* u, int n)
 {
     FP sum=0;
+#pragma omp parallel for reduction(+:sum)
     for (int i = 0; i<n; ++i) {
         sum+=v[i]*u[i];
     }
@@ -24,6 +25,7 @@ void mult_Av(double* in, double* out, int n)
 {
     for (int i=0; i<n; ++i) {
         FP sum=0;
+#pragma omp parallel for reduction(+:sum)
         for (int j=0; j<n; ++j) {
             sum+=in[j]/A(i,j);
         }
@@ -35,6 +37,7 @@ void mult_Atv(double* in, double* out, int n)
 {
     for (int i=0; i<n; ++i) {
         FP sum=0;
+#pragma omp parallel for reduction(+:sum)
         for (int j=0; j<n; ++j) {
             sum+=in[j]/A(j,i);
         }
@@ -62,10 +65,11 @@ int main(int argc, char **argv)
     FP v[STATIC];
     FP tmp[STATIC];
 #endif
+#pragma omp parallel for
     for (int i=0; i<N; ++i) {
         u[i]=1;
     }
-    
+
     for (int i=0; i<10; ++i) {
         mult_AtAv(u, v, N, tmp);
         mult_AtAv(v, u, N, tmp);
@@ -83,5 +87,3 @@ int main(int argc, char **argv)
     
     printf("%.9f\n", res);
 }
-
-
