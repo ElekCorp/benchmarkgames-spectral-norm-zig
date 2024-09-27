@@ -54,9 +54,9 @@ int main(int argc, char **argv)
     int N = ((argc >= 2) ? atoi(argv[1]) : 2000);
     
 #ifndef STATIC
-    FP* u=malloc(N*sizeof(FP));
-    FP* v=malloc(N*sizeof(FP));
-    FP* tmp=malloc(N*sizeof(FP));
+    FP* u=(FP*)malloc(N*sizeof(FP));
+    FP* v=(FP*)malloc(N*sizeof(FP));
+    FP* tmp=(FP*)malloc(N*sizeof(FP));
 #else    
     FP u[STATIC];
     FP v[STATIC];
