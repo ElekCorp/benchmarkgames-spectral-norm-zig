@@ -1,5 +1,5 @@
 CXX :=g++
-CFLAGS := -O3 -Wall -fopenmp
+CFLAGS := -O3 -march=native -Wall -fopenmp
 
 #HEADERS := $(wildcard *.h)
 SOURCES := $(wildcard *.c)

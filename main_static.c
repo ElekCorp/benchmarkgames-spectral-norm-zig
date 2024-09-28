@@ -23,9 +23,10 @@ FP dot(double* v, double* u, int n)
 
 void mult_Av(double* in, double* out, int n)
 {
+#pragma omp parallel for
     for (int i=0; i<n; ++i) {
         FP sum=0;
-#pragma omp parallel for reduction(+:sum)
+//#pragma omp parallel for reduction(+:sum)
         for (int j=0; j<n; ++j) {
             sum+=in[j]/A(i,j);
         }
@@ -35,9 +36,10 @@ void mult_Av(double* in, double* out, int n)
 
 void mult_Atv(double* in, double* out, int n)
 {
+#pragma omp parallel for
     for (int i=0; i<n; ++i) {
         FP sum=0;
-#pragma omp parallel for reduction(+:sum)
+//#pragma omp parallel for reduction(+:sum)
         for (int j=0; j<n; ++j) {
             sum+=in[j]/A(j,i);
         }
